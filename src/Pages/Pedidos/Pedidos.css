@@ -2,21 +2,21 @@
   padding: 20px;
 }
 
-.citas-formulario {
+.Pedidos-formulario {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-.citas-formulario input {
+.Pedidos-formulario input {
   padding: 8px;
   border: 1px solid #1976d2;
   border-radius: 6px;
 }
 
-.citas-formulario button,
-.citas-tabla button {
+.Pedidos-formulario button,
+.Pedidos-tabla button {
   padding: 8px 14px;
   border: none;
   border-radius: 6px;
@@ -25,31 +25,31 @@
   background: #2e7d32;
 }
 
-.citas-cancelar {
+.Pedidos-cancelar {
   background: #757575 !important;
 }
 
-.citas-tabla {
+.Pedidos-tabla {
   width: 100%;
   border-collapse: collapse;
 }
 
-.citas-tabla th,
-.citas-tabla td {
+.Pedidos-tabla th,
+.Pedidos-tabla td {
   padding: 10px;
   border: 1px solid #ddd;
   text-align: left;
 }
 
-.citas-tabla th {
+.Pedidos-tabla th {
   background: #f0f0f0;
 }
 
-.citas-tabla .citas-editar {
+.Pedidos-tabla .Pedidos-editar {
   background: #1976d2;
   margin-right: 6px;
 }
 
-.citas-tabla .citas-eliminar {
+.Pedidos-tabla .Pedidos-eliminar {
   background: #d32f2f;
 }

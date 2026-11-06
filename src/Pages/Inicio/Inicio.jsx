@@ -3,11 +3,10 @@ import "./Inicio.css";
 function Inicio() {
 return (
 <div className="inicio">
-<h1>Veterinaria FOPARRA</h1>
+<h1>Comidad Rapidas</h1>
 
 <p>
-Sistema de gestión de propietarios,
-mascotas y citas.
+
 </p>
 </div>
 );

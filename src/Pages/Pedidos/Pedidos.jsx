@@ -1,29 +1,29 @@
 import { useState } from "react";
-import "./Citas.css";
+import "./Pedidos.css";
 
-function Citas() {
-  const [mascota, setMascota] = useState("");
-  const [propietario, setPropietario] = useState("");
+function Pedidos() {
+  const [pedido, setpedido] = useState("");
+  const [Cliente, setCliente] = useState("");
   const [fecha, setFecha] = useState("");
   const [hora, setHora] = useState("");
   const [motivo, setMotivo] = useState("");
 
-  const [citas, setCitas] = useState([]);
+  const [Pedidos, setPedidos] = useState([]);
   const [editandoId, setEditandoId] = useState(null);
 
   const limpiarFormulario = () => {
-    setMascota("");
-    setPropietario("");
+    setpedido("");
+    setCliente("");
     setFecha("");
     setHora("");
     setMotivo("");
     setEditandoId(null);
   };
 
-  const guardarCita = () => {
+  const guardarpedido = () => {
     if (
-      mascota.trim() === "" ||
-      propietario.trim() === "" ||
+      pedido.trim() === "" ||
+      Cliente.trim() === "" ||
       fecha === "" ||
       hora === "" ||
       motivo.trim() === ""
@@ -33,52 +33,52 @@ function Citas() {
     }
 
     if (editandoId) {
-      setCitas(
-        citas.map((cita) =>
-          cita.id === editandoId
-            ? { ...cita, mascota, propietario, fecha, hora, motivo }
-            : cita
+      setPedidos(
+        Pedidos.map((pedido) =>
+          pedido.id === editandoId
+            ? { ...pedido, pedido, Cliente, fecha, hora, motivo }
+            : pedido
         )
       );
     } else {
-      setCitas([
-        ...citas,
-        { id: Date.now(), mascota, propietario, fecha, hora, motivo },
+      setPedidos([
+        ...Pedidos,
+        { id: Date.now(), pedido, Cliente, fecha, hora, motivo },
       ]);
     }
 
     limpiarFormulario();
   };
 
-  const editarCita = (cita) => {
-    setMascota(cita.mascota);
-    setPropietario(cita.propietario);
-    setFecha(cita.fecha);
-    setHora(cita.hora);
-    setMotivo(cita.motivo);
-    setEditandoId(cita.id);
+  const editarpedido = (pedido) => {
+    setpedido(pedido.pedido);
+    setCliente(pedido.Cliente);
+    setFecha(pedido.fecha);
+    setHora(pedido.hora);
+    setMotivo(pedido.motivo);
+    setEditandoId(pedido.id);
   };
 
-  const eliminarCita = (id) => {
-    setCitas(citas.filter((cita) => cita.id !== id));
+  const eliminarpedido = (id) => {
+    setPedidos(Pedidos.filter((pedido) => pedido.id !== id));
   };
 
   return (
     <div className="contenido">
-      <h1>Gestión de Citas</h1>
+      <h1>Gestión de Pedidos</h1>
 
-      <div className="citas-formulario">
+      <div className="Pedidos-formulario">
         <input
           type="text"
-          placeholder="Mascota"
-          value={mascota}
-          onChange={(e) => setMascota(e.target.value)}
+          placeholder="pedido"
+          value={pedido}
+          onChange={(e) => setpedido(e.target.value)}
         />
         <input
           type="text"
-          placeholder="Propietario"
-          value={propietario}
-          onChange={(e) => setPropietario(e.target.value)}
+          placeholder="Cliente"
+          value={Cliente}
+          onChange={(e) => setCliente(e.target.value)}
         />
         <input
           type="date"
@@ -92,29 +92,29 @@ function Citas() {
         />
         <input
           type="text"
-          placeholder="Motivo de la cita"
+          placeholder="Motivo de la pedido"
           value={motivo}
           onChange={(e) => setMotivo(e.target.value)}
         />
 
-        <button onClick={guardarCita}>
+        <button onClick={guardarpedido}>
           {editandoId ? "Actualizar" : "Agendar"}
         </button>
 
         {editandoId && (
-          <button className="citas-cancelar" onClick={limpiarFormulario}>
+          <button className="Pedidos-cancelar" onClick={limpiarFormulario}>
             Cancelar
           </button>
         )}
       </div>
 
-      <h2>Lista de Citas</h2>
+      <h2>Lista de Pedidos</h2>
 
-      <table className="citas-tabla">
+      <table className="Pedidos-tabla">
         <thead>
           <tr>
-            <th>Mascota</th>
-            <th>Propietario</th>
+            <th>pedido</th>
+            <th>Cliente</th>
             <th>Fecha</th>
             <th>Hora</th>
             <th>Motivo</th>
@@ -122,28 +122,28 @@ function Citas() {
           </tr>
         </thead>
         <tbody>
-          {citas.length === 0 ? (
+          {Pedidos.length === 0 ? (
             <tr>
-              <td colSpan="6">No hay citas registradas</td>
+              <td colSpan="6">No hay Pedidos registradas</td>
             </tr>
           ) : (
-            citas.map((cita) => (
-              <tr key={cita.id}>
-                <td>{cita.mascota}</td>
-                <td>{cita.propietario}</td>
-                <td>{cita.fecha}</td>
-                <td>{cita.hora}</td>
-                <td>{cita.motivo}</td>
+            Pedidos.map((pedido) => (
+              <tr key={pedido.id}>
+                <td>{pedido.pedido}</td>
+                <td>{pedido.Cliente}</td>
+                <td>{pedido.fecha}</td>
+                <td>{pedido.hora}</td>
+                <td>{pedido.motivo}</td>
                 <td>
                   <button
-                    className="citas-editar"
-                    onClick={() => editarCita(cita)}
+                    className="Pedidos-editar"
+                    onClick={() => editarpedido(pedido)}
                   >
                     Editar
                   </button>
                   <button
-                    className="citas-eliminar"
-                    onClick={() => eliminarCita(cita.id)}
+                    className="Pedidos-eliminar"
+                    onClick={() => eliminarpedido(pedido.id)}
                   >
                     Eliminar
                   </button>
@@ -157,4 +157,4 @@ function Citas() {
   );
 }
 
-export default Citas;
+export default Pedidos;

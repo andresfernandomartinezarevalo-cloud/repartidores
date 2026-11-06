@@ -1,10 +1,10 @@
 import { useState } from "react";
-import "./Propietarios.css";
-function Propietarios() {
+import "./Administrador.css";
+function Administrador() {
 const [nombre, setNombre] = useState("");
 const [telefono, setTelefono] = useState("");
 const [correo, setCorreo] = useState("");
-const [propietarios, setPropietarios] = useState([]);
+const [Administrador, setAdministrador] = useState([]);
 const guardarPropietario = () => {
 if (
 nombre.trim() === "" ||
@@ -20,21 +20,21 @@ nombre,
 telefono,
 correo
 };
-setPropietarios([...propietarios, nuevo]);
+setAdministrador([...Administrador, nuevo]);
 setNombre("");
 setTelefono("");
 setCorreo("");
 };
 const eliminarPropietario = (id) => {
 const listaNueva =
-propietarios.filter(
+Administrador.filter(
 propietario => propietario.id !== id
 );
-setPropietarios(listaNueva);
+setAdministrador(listaNueva);
 };
 return (
 <div className="contenedor">
-<h1>Gestión de Propietarios</h1>
+<h1>Gestión de Administrador</h1>
 <div className="formulario">
 <input
 type="text"
@@ -63,7 +63,7 @@ onClick={guardarPropietario}
 Guardar
 </button>
 </div>
-<h2>Lista de Propietarios</h2>
+<h2>Lista de Administrador</h2>
 <table>
 <thead>
 <tr>
@@ -76,7 +76,7 @@ Guardar
 </thead>
 <tbody>
 {
-propietarios.map(
+Administrador.map(
 propietario => (
 <tr
 key={propietario.id}
@@ -112,4 +112,4 @@ Eliminar
 </div>
 );
 }
-export default Propietarios;
+export default Administrador;

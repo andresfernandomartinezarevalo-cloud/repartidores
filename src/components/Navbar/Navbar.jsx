@@ -6,7 +6,7 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <h2>🐾 Veterinaria FOPARRA</h2>
+      <h2>Comidad Rapidas</h2>
 
       <ul>
         <li>
@@ -14,15 +14,19 @@ function Navbar() {
         </li>
 
         <li>
-          <Link to="/propietarios">Propietarios</Link>
+          <Link to="/administrador">Administrador</Link>
         </li>
 
         <li>
-          <Link to="/mascotas">Mascotas</Link>
+          <Link to="/pedidos">Pedidos</Link>
         </li>
 
         <li>
-          <Link to="/citas">Citas</Link>
+          <Link to="/cliente">Clientes</Link>
+        </li>
+
+        <li>
+          <Link to="/recepcionista">Recepcionista</Link>
         </li>
       </ul>
 
