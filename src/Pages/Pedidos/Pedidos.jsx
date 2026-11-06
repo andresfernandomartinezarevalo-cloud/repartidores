@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Pedidos.css";
 
 function Pedidos() {
-  const [pedido, setpedido] = useState("");
+  const [Pedido, setPedido] = useState("");
   const [Cliente, setCliente] = useState("");
   const [fecha, setFecha] = useState("");
   const [hora, setHora] = useState("");
@@ -12,7 +12,7 @@ function Pedidos() {
   const [editandoId, setEditandoId] = useState(null);
 
   const limpiarFormulario = () => {
-    setpedido("");
+    setPedido("");
     setCliente("");
     setFecha("");
     setHora("");
@@ -20,9 +20,9 @@ function Pedidos() {
     setEditandoId(null);
   };
 
-  const guardarpedido = () => {
+  const guardarPedido = () => {
     if (
-      pedido.trim() === "" ||
+      Pedido.trim() === "" ||
       Cliente.trim() === "" ||
       fecha === "" ||
       hora === "" ||
@@ -34,33 +34,33 @@ function Pedidos() {
 
     if (editandoId) {
       setPedidos(
-        Pedidos.map((pedido) =>
-          pedido.id === editandoId
-            ? { ...pedido, pedido, Cliente, fecha, hora, motivo }
-            : pedido
+        Pedidos.map((Pedido) =>
+          Pedido.id === editandoId
+            ? { ...Pedido, Pedido, Cliente, fecha, hora, motivo }
+            : Pedido
         )
       );
     } else {
       setPedidos([
         ...Pedidos,
-        { id: Date.now(), pedido, Cliente, fecha, hora, motivo },
+        { id: Date.now(), Pedido, Cliente, fecha, hora, motivo },
       ]);
     }
 
     limpiarFormulario();
   };
 
-  const editarpedido = (pedido) => {
-    setpedido(pedido.pedido);
-    setCliente(pedido.Cliente);
-    setFecha(pedido.fecha);
-    setHora(pedido.hora);
-    setMotivo(pedido.motivo);
-    setEditandoId(pedido.id);
+  const editarPedido = (Pedido) => {
+    setPedido(Pedido.Pedido);
+    setCliente(Pedido.Cliente);
+    setFecha(Pedido.fecha);
+    setHora(Pedido.hora);
+    setMotivo(Pedido.motivo);
+    setEditandoId(Pedido.id);
   };
 
-  const eliminarpedido = (id) => {
-    setPedidos(Pedidos.filter((pedido) => pedido.id !== id));
+  const eliminarPedido = (id) => {
+    setPedidos(Pedidos.filter((Pedido) => Pedido.id !== id));
   };
 
   return (
@@ -70,9 +70,9 @@ function Pedidos() {
       <div className="Pedidos-formulario">
         <input
           type="text"
-          placeholder="pedido"
-          value={pedido}
-          onChange={(e) => setpedido(e.target.value)}
+          placeholder="Pedido"
+          value={Pedido}
+          onChange={(e) => setPedido(e.target.value)}
         />
         <input
           type="text"
@@ -92,12 +92,12 @@ function Pedidos() {
         />
         <input
           type="text"
-          placeholder="Motivo de la pedido"
+          placeholder="Motivo de la Pedido"
           value={motivo}
           onChange={(e) => setMotivo(e.target.value)}
         />
 
-        <button onClick={guardarpedido}>
+        <button onClick={guardarPedido}>
           {editandoId ? "Actualizar" : "Agendar"}
         </button>
 
@@ -113,7 +113,7 @@ function Pedidos() {
       <table className="Pedidos-tabla">
         <thead>
           <tr>
-            <th>pedido</th>
+            <th>Pedido</th>
             <th>Cliente</th>
             <th>Fecha</th>
             <th>Hora</th>
@@ -127,23 +127,23 @@ function Pedidos() {
               <td colSpan="6">No hay Pedidos registradas</td>
             </tr>
           ) : (
-            Pedidos.map((pedido) => (
-              <tr key={pedido.id}>
-                <td>{pedido.pedido}</td>
-                <td>{pedido.Cliente}</td>
-                <td>{pedido.fecha}</td>
-                <td>{pedido.hora}</td>
-                <td>{pedido.motivo}</td>
+            Pedidos.map((Pedido) => (
+              <tr key={Pedido.id}>
+                <td>{Pedido.Pedido}</td>
+                <td>{Pedido.Cliente}</td>
+                <td>{Pedido.fecha}</td>
+                <td>{Pedido.hora}</td>
+                <td>{Pedido.motivo}</td>
                 <td>
                   <button
                     className="Pedidos-editar"
-                    onClick={() => editarpedido(pedido)}
+                    onClick={() => editarPedido(Pedido)}
                   >
                     Editar
                   </button>
                   <button
                     className="Pedidos-eliminar"
-                    onClick={() => eliminarpedido(pedido.id)}
+                    onClick={() => eliminarPedido(Pedido.id)}
                   >
                     Eliminar
                   </button>
