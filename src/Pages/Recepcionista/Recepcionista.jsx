@@ -4,8 +4,10 @@ import "./Recepcionista.css";
 function Recepcionista() {
   // Campos del formulario
   const [Nrepartidor, setNrepartidor] = useState("");
+  const [Ncliente, setNcliente] = useState("");
+  const [estado, setEstado] = useState("");
   const [telefono, setTelefono] = useState("");
-  const [pedido, setpedido] = useState("");
+  const [pedido, setPedido] = useState("");
 
   // Lista de Recepcionistas y control de edición
   const [Recepcionistas, setRecepcionistas] = useState([]);
@@ -13,37 +15,52 @@ function Recepcionista() {
 
   const limpiarFormulario = () => {
     setNrepartidor("");
+    setNcliente("");
+    setEstado("");
     setTelefono("");
-    setpedido("");
+    setPedido("");
     setEditandoId(null);
   };
 
   const guardarRecepcionista = () => {
-    if (Nrepartidor.trim() === "" || telefono.trim() === "" || pedido.trim() === "") {
+    if (
+      Nrepartidor.trim() === "" ||
+      Ncliente.trim() === "" ||
+      estado === "" ||
+      telefono.trim() === "" ||
+      pedido.trim() === ""
+    ) {
       alert("Todos los campos son obligatorios");
       return;
     }
 
     if (editandoId !== null) {
-      // Modo edición: reemplaza los datos del Recepcionista seleccionado
+      // Modo edición: reemplaza los datos del registro seleccionado
       setRecepcionistas(
         Recepcionistas.map((c) =>
-          c.id === editandoId ? { ...c, Nrepartidor, telefono, pedido } : c
+          c.id === editandoId
+            ? { ...c, Nrepartidor, Ncliente, estado, telefono, pedido }
+            : c
         )
       );
     } else {
-      // Modo nuevo: agrega un Recepcionista a la lista
-      setRecepcionistas([...Recepcionistas, { id: Date.now(), Nrepartidor, telefono, pedido }]);
+      // Modo nuevo: agrega un registro a la lista
+      setRecepcionistas([
+        ...Recepcionistas,
+        { id: Date.now(), Nrepartidor, Ncliente, estado, telefono, pedido },
+      ]);
     }
 
     limpiarFormulario();
   };
 
-  // Carga los datos del Recepcionista en el formulario para modificarlos
+  // Carga los datos del registro en el formulario para modificarlos
   const editarRecepcionista = (c) => {
     setNrepartidor(c.Nrepartidor);
+    setNcliente(c.Ncliente);
+    setEstado(c.estado);
     setTelefono(c.telefono);
-    setpedido(c.pedido);
+    setPedido(c.pedido);
     setEditandoId(c.id);
   };
 
@@ -60,9 +77,15 @@ function Recepcionista() {
       <div className="Recepcionistas-formulario">
         <input
           type="text"
-          placeholder="Nrepartidor"
+          placeholder="Nombre del repartidor"
           value={Nrepartidor}
           onChange={(e) => setNrepartidor(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Nombre del cliente"
+          value={Ncliente}
+          onChange={(e) => setNcliente(e.target.value)}
         />
         <input
           type="text"
@@ -72,10 +95,17 @@ function Recepcionista() {
         />
         <input
           type="text"
-          placeholder="pedido"
+          placeholder="Pedido"
           value={pedido}
-          onChange={(e) => setpedido(e.target.value)}
+          onChange={(e) => setPedido(e.target.value)}
         />
+        <select value={estado} onChange={(e) => setEstado(e.target.value)}>
+          <option value="">Estado del pedido</option>
+          <option value="Pendiente">Pendiente</option>
+          <option value="En camino">En camino</option>
+          <option value="Entregado">Entregado</option>
+          <option value="Cancelado">Cancelado</option>
+        </select>
 
         <button onClick={guardarRecepcionista}>
           {editandoId !== null ? "Actualizar" : "Guardar"}
@@ -93,23 +123,27 @@ function Recepcionista() {
       <table className="Recepcionistas-tabla">
         <thead>
           <tr>
-            <th>Nrepartidor</th>
+            <th>Repartidor</th>
+            <th>Cliente</th>
             <th>Teléfono</th>
-            <th>pedido</th>
+            <th>Pedido</th>
+            <th>Estado</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {Recepcionistas.length === 0 ? (
             <tr>
-              <td colSpan="4">No hay Recepcionistas registrados</td>
+              <td colSpan="6">No hay registros</td>
             </tr>
           ) : (
             Recepcionistas.map((c) => (
               <tr key={c.id}>
                 <td>{c.Nrepartidor}</td>
+                <td>{c.Ncliente}</td>
                 <td>{c.telefono}</td>
                 <td>{c.pedido}</td>
+                <td>{c.estado}</td>
                 <td>
                   <button
                     className="Recepcionistas-editar"
@@ -132,4 +166,5 @@ function Recepcionista() {
     </div>
   );
 }
+
 export default Recepcionista;
