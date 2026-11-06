@@ -1,16 +1,45 @@
-import { useState } from "react";
-import "src/components/Navbar/Navbar.jsx";
-import "src/Pages/Administrador/Administrador.jsx";
-import "src/Pages/Login/Login.jsx";
-import "src/Pages/Pedidos/Pedidos.jsx";
-import "src/Pages/Recepcionista/Recepcionista.jsx";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+
+// Componentes
+import Navbar from "./components/Navbar/Navbar.jsx";
+
+// Páginas
+import Administrador from "./Pages/Administrador/Administrador.jsx";
+import Inicio from "./Pages/Inicio/Inicio.jsx";
+import Login from "./Pages/Login/Login.jsx";
+import Pedidos from "./Pages/Pedidos/Pedidos.jsx";
+import Recepcionista from "./Pages/Recepcionista/Recepcionista.jsx";
+
 import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0);
+function MainLayout() {
+  const location = useLocation();
+  
+  // Si la ruta actual es la raíz ("/"), no mostramos el Navbar
+  const hideNavbar = location.pathname === "/";
 
   return (
+    <>
+      {!hideNavbar && <Navbar />}
+      <Routes>
+        {/* La primera página al entrar */}
+        <Route path="/" element={<Login />} />
+  
+        {/* Páginas principales de la veterinaria */}
+        <Route path="/inicio" element={<Inicio />} />
+        <Route path="/administrador" element={<Administrador />} />
+        <Route path="/pedidos" element={<Pedidos />} />
+        <Route path="/recepcionista" element={<Recepcionista />} />
+      </Routes>
+    </>
+  );
+}
 
+function App() {
+  return (
+    <BrowserRouter>
+      <MainLayout />
+    </BrowserRouter>
   );
 }
 
