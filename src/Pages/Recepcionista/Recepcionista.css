@@ -1,0 +1,63 @@
+.Recepcionistas-contenido {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  text-align: left;
+}
+
+.Recepcionistas-formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.Recepcionistas-formulario input,
+.Recepcionistas-formulario select {
+  flex: 1 1 160px;
+  padding: 8px 10px;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.Recepcionistas-formulario button,
+.Recepcionistas-tabla button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  background: #2563eb;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.Recepcionistas-formulario button:hover,
+.Recepcionistas-tabla button:hover {
+  filter: brightness(1.1);
+}
+
+.Recepcionistas-cancelar {
+  background: #6b7280 !important;
+}
+
+.Recepcionistas-editar {
+  background: #d97706 !important;
+  margin-right: 6px;
+}
+
+.Recepcionistas-eliminar {
+  background: #dc2626 !important;
+}
+
+.Recepcionistas-tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.Recepcionistas-tabla th,
+.Recepcionistas-tabla td {
+  padding: 10px;
+  border-bottom: 1px solid #9ca3af;
+  text-align: left;
+}

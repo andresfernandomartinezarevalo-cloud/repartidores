@@ -28,6 +28,10 @@ function Navbar() {
         <li>
           <Link to="/recepcionista">Recepcionista</Link>
         </li>
+
+        <li>
+          <Link to="/Repartidor">Repartidor</Link>
+        </li>
       </ul>
 
       <button

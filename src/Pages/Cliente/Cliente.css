@@ -1,0 +1,62 @@
+.clientes-contenido {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  text-align: left;
+}
+ 
+.clientes-formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+ 
+.clientes-formulario input {
+  flex: 1 1 160px;
+  padding: 8px 10px;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
+  font-size: 16px;
+}
+ 
+.clientes-formulario button,
+.clientes-tabla button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  background: #2563eb;
+  font-size: 15px;
+  cursor: pointer;
+}
+ 
+.clientes-formulario button:hover,
+.clientes-tabla button:hover {
+  filter: brightness(1.1);
+}
+ 
+.clientes-cancelar {
+  background: #6b7280 !important;
+}
+ 
+.clientes-editar {
+  background: #d97706 !important;
+  margin-right: 6px;
+}
+ 
+.clientes-eliminar {
+  background: #dc2626 !important;
+}
+ 
+.clientes-tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+ 
+.clientes-tabla th,
+.clientes-tabla td {
+  padding: 10px;
+  border-bottom: 1px solid #9ca3af;
+  text-align: left;
+}
