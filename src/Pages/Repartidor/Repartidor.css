@@ -1,0 +1,63 @@
+.Repartidores-contenido {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  text-align: left;
+}
+
+.Repartidores-formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.Repartidores-formulario input,
+.Repartidores-formulario select {
+  flex: 1 1 160px;
+  padding: 8px 10px;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.Repartidores-formulario button,
+.Repartidores-tabla button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  background: #2563eb;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.Repartidores-formulario button:hover,
+.Repartidores-tabla button:hover {
+  filter: brightness(1.1);
+}
+
+.Repartidores-cancelar {
+  background: #6b7280 !important;
+}
+
+.Repartidores-editar {
+  background: #d97706 !important;
+  margin-right: 6px;
+}
+
+.Repartidores-eliminar {
+  background: #dc2626 !important;
+}
+
+.Repartidores-tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.Repartidores-tabla th,
+.Repartidores-tabla td {
+  padding: 10px;
+  border-bottom: 1px solid #9ca3af;
+  text-align: left;
+}
