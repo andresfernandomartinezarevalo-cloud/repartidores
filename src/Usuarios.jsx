@@ -33,17 +33,20 @@ export const permisos = {
   ],
 
   recepcionista: [
+    "/inicio",
     "/pedidos",
     "/cliente",
     "/repartidor"
   ],
 
   repartidor: [
+    "/inicio",
     "/cliente",
     "/pedidos"
   ],
 
   cliente: [
+    "/inicio",
     "/pedidos"
   ]
 };
