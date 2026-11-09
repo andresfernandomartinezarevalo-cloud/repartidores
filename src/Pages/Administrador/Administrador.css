@@ -1,42 +1,113 @@
-.contenedor{
-padding:30px;
+
+.contenedor {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-.formulario{
-display:flex;
-gap:10px;
-margin-bottom:30px;
+
+.contenedor h1 {
+  color: #181818;
+  text-align: center;
+  font-size: 38px;
+  margin-bottom: 25px;
 }
-input{
-padding:10px;
-border:1px solid #ccc;
-border-radius:5px;
+
+.formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
 }
-button{
-padding:10px 15px;
-border:none;
-background:#1976d2;
-color:white;
-cursor:pointer;
-border-radius:5px;
+
+.formulario input {
+  flex: 1 1 180px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
 }
-button:hover{
-background:#0d47a1;
+
+.formulario input:focus {
+  border-color: #ffb703;
+  box-shadow: 0 0 5px #ffb70380;
 }
-table{
-width:100%;
-border-collapse:collapse;
+
+.formulario button {
+  padding: 12px 20px;
+  border: none;
+  background: #ffb703;
+  color: #181818;
+  cursor: pointer;
+  border-radius: 7px;
+  font-weight: bold;
+  transition: 0.3s;
 }
-th{
-background:#1976d2;
-color:white;
+
+.formulario button:hover {
+  background: #fb8500;
+  color: white;
 }
-td,th{
-border:1px solid #ddd;
-padding:10px;
+
+.contenedor table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
 }
-.eliminar{
-background:red;
+
+.contenedor table th {
+  background: #181818;
+  color: #ffb703;
+  padding: 14px;
+  border: 1px solid #444;
+  text-align: center;
 }
-.eliminar:hover{
-background:darkred;
+
+.contenedor table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #333;
+}
+
+.contenedor table tr:nth-child(even) {
+  background: #fff8ed;
+}
+
+.contenedor table tr:hover {
+  background: #fff0cc;
+}
+
+.contenedor .eliminar {
+  background: #dc2626;
+  color: white;
+  padding: 9px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.contenedor .eliminar:hover {
+  background: #991b1b;
+}
+
+@media (max-width: 600px) {
+  .contenedor {
+    padding: 15px;
+    overflow-x: auto;
+  }
+
+  .contenedor h1 {
+    font-size: 28px;
+  }
+
+  .formulario {
+    flex-direction: column;
+  }
+
+  .contenedor table {
+    min-width: 550px;
+  }
 }

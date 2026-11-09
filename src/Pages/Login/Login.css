@@ -1,40 +1,120 @@
+
 .login-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
-  background: url("../../../veterinaria.jpg") center / cover no-repeat;
+  padding: 20px;
+  background: linear-gradient(135deg, #181818, #333333, #181818);
+  font-family: Arial, sans-serif;
 }
 
 .login-card {
   width: 100%;
-  max-width: 360px;
-  padding: 24px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: rgb(255 255 255 / 90%);
+  max-width: 400px;
+  padding: 35px 30px;
+  border: 1px solid #444;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 15px 40px #00000066;
+  animation: aparecer 0.6s ease;
 }
 
 .login-card h1 {
-  margin: 0 0 20px;
+  margin: 0 0 10px;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 30px;
+  font-weight: bold;
+  color: #181818;
+}
+
+.login-card h1::after {
+  content: "";
+  display: block;
+  width: 65px;
+  height: 4px;
+  background: #ffb703;
+  border-radius: 5px;
+  margin: 12px auto 25px;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
-.login-form input,
-.login-form button {
-  padding: 10px;
-  font: inherit;
+.login-form label {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 5px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 14px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  background: #f9f9f9;
+  color: #181818;
+  transition: 0.3s;
+}
+
+.login-form input:focus {
+  border-color: #ffb703;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px #ffb70333;
+}
+
+.login-form input::placeholder {
+  color: #999;
 }
 
 .login-form button {
-  margin-top: 8px;
+  margin-top: 15px;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: #ffb703;
+  color: #181818;
+  font-size: 17px;
+  font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-form button:hover {
+  background: #fb8500;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px #fb850066;
+}
+
+.login-form button:active {
+  transform: scale(0.98);
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 28px 20px;
+  }
+
+  .login-card h1 {
+    font-size: 26px;
+  }
 }

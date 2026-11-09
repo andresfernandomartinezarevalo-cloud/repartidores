@@ -1,43 +1,56 @@
+
 import { Link, useNavigate } from "react-router-dom";
+import { permisos } from "../../Usuarios.jsx";
 import "./Navbar.css";
 
 function Navbar() {
   const navigate = useNavigate();
 
+  const sesion = JSON.parse(
+    localStorage.getItem("usuario") || "null"
+  );
+
+  if (!sesion) {
+    return null;
+  }
+
+const opciones = [
+  { nombre: "Inicio", ruta: "/inicio" },
+  { nombre: "Administrador", ruta: "/administrador" },
+  { nombre: "Pedidos", ruta: "/pedidos" },
+  { nombre: "Clientes", ruta: "/cliente" },
+  { nombre: "Recepcionista", ruta: "/recepcionista" },
+  { nombre: "Repartidor", ruta: "/repartidor" }
+];
+
+const rutasPermitidas = permisos[sesion.rol] || [];
+
+const opcionesPermitidas = opciones.filter((opcion) =>
+  rutasPermitidas.includes(opcion.ruta)
+);
+
+  function cerrarSesion() {
+    localStorage.removeItem("usuario");
+    navigate("/");
+  }
+
   return (
     <nav className="navbar">
-      <h2>Comidad Rapidas</h2>
+      <h2>FastFoot</h2>
 
       <ul>
-        <li>
-          <Link to="/inicio">Inicio</Link>
-        </li>
-
-        <li>
-          <Link to="/administrador">Administrador</Link>
-        </li>
-
-        <li>
-          <Link to="/pedidos">Pedidos</Link>
-        </li>
-
-        <li>
-          <Link to="/cliente">Clientes</Link>
-        </li>
-
-        <li>
-          <Link to="/recepcionista">Recepcionista</Link>
-        </li>
-
-        <li>
-          <Link to="/Repartidor">Repartidor</Link>
-        </li>
+        {opcionesPermitidas.map((opcion) => (
+          <li key={opcion.ruta}>
+            <Link to={opcion.ruta}>
+              {opcion.nombre}
+            </Link>
+          </li>
+        ))}
       </ul>
 
       <button
         className="navbar-logout"
-        type="button"
-        onClick={() => navigate("/")}
+        onClick={cerrarSesion}
       >
         Cerrar sesión
       </button>

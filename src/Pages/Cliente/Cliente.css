@@ -1,62 +1,133 @@
+
 .clientes-contenido {
-  max-width: 800px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 24px 16px;
+  padding: 30px 20px;
   text-align: left;
 }
- 
+
+.clientes-contenido h1 {
+  color: #181818;
+  text-align: center;
+  font-size: 38px;
+  margin-bottom: 25px;
+}
+
 .clientes-formulario {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 24px;
+  gap: 10px;
+  margin-bottom: 30px;
 }
- 
+
 .clientes-formulario input {
-  flex: 1 1 160px;
-  padding: 8px 10px;
-  border: 1px solid #9ca3af;
-  border-radius: 6px;
-  font-size: 16px;
+  flex: 1 1 180px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
 }
- 
+
+.clientes-formulario input:focus {
+  border-color: #ffb703;
+  box-shadow: 0 0 5px #ffb70380;
+}
+
 .clientes-formulario button,
 .clientes-tabla button {
-  padding: 8px 14px;
+  padding: 10px 16px;
   border: none;
-  border-radius: 6px;
-  color: #fff;
-  background: #2563eb;
+  border-radius: 7px;
+  color: #181818;
+  background: #ffb703;
   font-size: 15px;
+  font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
 }
- 
+
 .clientes-formulario button:hover,
 .clientes-tabla button:hover {
-  filter: brightness(1.1);
+  background: #fb8500;
+  color: white;
 }
- 
+
 .clientes-cancelar {
   background: #6b7280 !important;
+  color: white !important;
 }
- 
+
+.clientes-cancelar:hover {
+  background: #4b5563 !important;
+}
+
 .clientes-editar {
-  background: #d97706 !important;
+  background: #ffb703 !important;
+  color: #181818 !important;
   margin-right: 6px;
 }
- 
+
+.clientes-editar:hover {
+  background: #fb8500 !important;
+  color: white !important;
+}
+
 .clientes-eliminar {
   background: #dc2626 !important;
+  color: white !important;
 }
- 
+
+.clientes-eliminar:hover {
+  background: #991b1b !important;
+}
+
 .clientes-tabla {
   width: 100%;
   border-collapse: collapse;
+  background: white;
+  margin-top: 20px;
 }
- 
-.clientes-tabla th,
+
+.clientes-tabla th {
+  padding: 14px;
+  background: #181818;
+  color: #ffb703;
+  border: 1px solid #444;
+  text-align: center;
+}
+
 .clientes-tabla td {
-  padding: 10px;
-  border-bottom: 1px solid #9ca3af;
-  text-align: left;
+  padding: 12px;
+  border: 1px solid #ddd;
+  color: #333;
+  text-align: center;
+}
+
+.clientes-tabla tr:nth-child(even) {
+  background: #fff8ed;
+}
+
+.clientes-tabla tr:hover {
+  background: #fff0cc;
+}
+
+@media (max-width: 600px) {
+  .clientes-contenido {
+    padding: 15px;
+    overflow-x: auto;
+  }
+
+  .clientes-contenido h1 {
+    font-size: 28px;
+  }
+
+  .clientes-formulario {
+    flex-direction: column;
+  }
+
+  .clientes-tabla {
+    min-width: 550px;
+  }
 }

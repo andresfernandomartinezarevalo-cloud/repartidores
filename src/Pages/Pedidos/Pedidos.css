@@ -1,55 +1,128 @@
+
 .contenido {
-  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.contenido h1 {
+  color: #181818;
+  text-align: center;
+  font-size: 38px;
+  margin-bottom: 25px;
 }
 
 .Pedidos-formulario {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-.Pedidos-formulario input {
-  padding: 8px;
-  border: 1px solid #1976d2;
-  border-radius: 6px;
+.Pedidos-formulario input,
+.Pedidos-formulario select {
+  flex: 1 1 180px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.Pedidos-formulario input:focus,
+.Pedidos-formulario select:focus {
+  border-color: #ffb703;
+  box-shadow: 0 0 5px #ffb70380;
 }
 
 .Pedidos-formulario button,
 .Pedidos-tabla button {
-  padding: 8px 14px;
+  padding: 10px 16px;
   border: none;
-  border-radius: 6px;
+  border-radius: 7px;
   cursor: pointer;
+  font-weight: bold;
+  background: #ffb703;
+  color: #181818;
+  transition: 0.3s;
+}
+
+.Pedidos-formulario button:hover,
+.Pedidos-tabla button:hover {
+  background: #fb8500;
   color: white;
-  background: #2e7d32;
 }
 
 .Pedidos-cancelar {
-  background: #757575 !important;
+  background: #6b7280 !important;
+  color: white !important;
+}
+
+.Pedidos-cancelar:hover {
+  background: #4b5563 !important;
 }
 
 .Pedidos-tabla {
   width: 100%;
   border-collapse: collapse;
-}
-
-.Pedidos-tabla th,
-.Pedidos-tabla td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
+  background: white;
+  margin-top: 20px;
 }
 
 .Pedidos-tabla th {
-  background: #f0f0f0;
+  background: #181818;
+  color: #ffb703;
+  padding: 14px;
+  border: 1px solid #444;
+  text-align: center;
+}
+
+.Pedidos-tabla td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #333;
+}
+
+.Pedidos-tabla tr:nth-child(even) {
+  background: #fff8ed;
+}
+
+.Pedidos-tabla tr:hover {
+  background: #fff0cc;
 }
 
 .Pedidos-tabla .Pedidos-editar {
-  background: #1976d2;
+  background: #ffb703;
+  color: #181818;
   margin-right: 6px;
 }
 
 .Pedidos-tabla .Pedidos-eliminar {
-  background: #d32f2f;
+  background: #dc2626;
+  color: white;
+}
+
+.Pedidos-tabla .Pedidos-eliminar:hover {
+  background: #991b1b;
+}
+
+@media (max-width: 600px) {
+  .contenido {
+    padding: 15px;
+    overflow-x: auto;
+  }
+
+  .contenido h1 {
+    font-size: 28px;
+  }
+
+  .Pedidos-formulario {
+    flex-direction: column;
+  }
+
+  .Pedidos-tabla {
+    min-width: 650px;
+  }
 }
