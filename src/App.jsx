@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar.jsx";
@@ -12,6 +11,7 @@ import Recepcionista from "./Pages/Recepcionista/Recepcionista.jsx";
 import Repartidor from "./Pages/Repartidor/repartidor.jsx";
 
 import { permisos } from "./Usuarios.jsx";
+import { PedidosProvider } from "./context/PedidosContext.jsx";
 
 import "./App.css";
 
@@ -70,9 +70,11 @@ function MainLayout() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <MainLayout />
-    </BrowserRouter>
+    <PedidosProvider>
+      <BrowserRouter>
+        <MainLayout />
+      </BrowserRouter>
+    </PedidosProvider>
   );
 }
 

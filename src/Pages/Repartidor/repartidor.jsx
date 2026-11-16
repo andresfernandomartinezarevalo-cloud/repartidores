@@ -1,168 +1,189 @@
 import { useState } from "react";
+import { usePedidos } from "../../context/PedidosContext.jsx";
+import { obtenerPermisosCrud, obtenerUsuarioActual } from "../../Usuarios.jsx";
 import "./Repartidor.css";
 
 function Repartidor() {
-  // Campos del formulario
-  const [Nrepartidor, setNrepartidor] = useState("");
-  const [Ncliente, setNcliente] = useState("");
-  const [estado, setEstado] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const [pedido, setPedido] = useState("");
+  const usuario = obtenerUsuarioActual();
+  const permisos = obtenerPermisosCrud("repartidor");
+  const { pedidos, cambiarEstado } = usePedidos();
 
-  // Lista de Repartidores y control de edición
-  const [Repartidores, setRepartidores] = useState([]);
-  const [editandoId, setEditandoId] = useState(null);
+  const [mensajeNotificacion, setMensajeNotificacion] = useState("");
 
-  const limpiarFormulario = () => {
-    setNrepartidor("");
-    setNcliente("");
-    setEstado("");
-    setTelefono("");
-    setPedido("");
-    setEditandoId(null);
+  const mostrarMensaje = (txt) => {
+    setMensajeNotificacion(txt);
+    setTimeout(() => setMensajeNotificacion(""), 3500);
   };
 
-  const guardarRepartidor = () => {
-    if (
-      Nrepartidor.trim() === "" ||
-      Ncliente.trim() === "" ||
-      estado === "" ||
-      telefono.trim() === "" ||
-      pedido.trim() === ""
-    ) {
-      alert("Todos los campos son obligatorios");
+  // ─── Filtrar estrictamente: Solo pedidos asignados a ESTE repartidor ───
+  const misEntregas = pedidos.filter(
+    (p) => p.repartidorAsignado === usuario?.usuario
+  );
+
+  const entregasPendientes = misEntregas.filter(
+    (p) => p.estado !== "Entregado" && p.estado !== "Cancelado"
+  );
+  const entregasRealizadas = misEntregas.filter(
+    (p) => p.estado === "Entregado"
+  );
+
+  const handleMarcarEnCamino = (id) => {
+    if (!permisos.ejecutar) {
+      alert("No tienes permiso para actualizar este pedido.");
       return;
     }
+    cambiarEstado(id, "En camino");
+    mostrarMensaje(`Pedido #${id} actualizado a "En camino". Inicia el desplazamiento hacia el cliente.`);
+  };
 
-    if (editandoId !== null) {
-      // Modo edición: reemplaza los datos del registro seleccionado
-      setRepartidores(
-        Repartidores.map((c) =>
-          c.id === editandoId
-            ? { ...c, Nrepartidor, Ncliente, estado, telefono, pedido }
-            : c
-        )
-      );
-    } else {
-      // Modo nuevo: agrega un registro a la lista
-      setRepartidores([
-        ...Repartidores,
-        { id: Date.now(), Nrepartidor, Ncliente, estado, telefono, pedido },
-      ]);
+  const handleMarcarEntregado = (id) => {
+    if (!permisos.ejecutar) {
+      alert("No tienes permiso para actualizar este pedido.");
+      return;
     }
-
-    limpiarFormulario();
-  };
-
-  // Carga los datos del registro en el formulario para modificarlos
-  const editarRepartidor = (c) => {
-    setNrepartidor(c.Nrepartidor);
-    setNcliente(c.Ncliente);
-    setEstado(c.estado);
-    setTelefono(c.telefono);
-    setPedido(c.pedido);
-    setEditandoId(c.id);
-  };
-
-  const eliminarRepartidor = (id) => {
-    setRepartidores(Repartidores.filter((c) => c.id !== id));
-    // Si se elimina el que se estaba editando, se limpia el formulario
-    if (id === editandoId) limpiarFormulario();
+    cambiarEstado(id, "Entregado");
+    mostrarMensaje(`Pedido #${id} registrado como "Entregado" satisfactoriamente.`);
   };
 
   return (
-    <div className="Repartidores-contenido">
-      <h1>Gestión de Repartidores</h1>
+    <div className="repartidor-pagina">
+      <div className="repartidor-contenido">
+        <header className="seccion-header">
+          <div className="header-info">
+            <h1>Panel de Entregas y Reparto</h1>
+            <p className="seccion-subtitulo">
+              Visualiza únicamente los pedidos asignados a tu ruta y actualiza el estado de cada entrega.
+            </p>
+          </div>
+          <div className="header-badge-area">
+            <span className="badge-sesion-usuario">Repartidor: <strong>{usuario?.usuario}</strong></span>
+            <span className="badge-rol-usuario">{usuario?.rol}</span>
+          </div>
+        </header>
 
-      <div className="Repartidores-formulario">
-        <input
-          type="text"
-          placeholder="Nombre del repartidor"
-          value={Nrepartidor}
-          onChange={(e) => setNrepartidor(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Nombre del cliente"
-          value={Ncliente}
-          onChange={(e) => setNcliente(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Teléfono"
-          value={telefono}
-          onChange={(e) => setTelefono(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Pedido"
-          value={pedido}
-          onChange={(e) => setPedido(e.target.value)}
-        />
-        <select value={estado} onChange={(e) => setEstado(e.target.value)}>
-          <option value="">Estado del pedido</option>
-          <option value="Pendiente">Pendiente</option>
-          <option value="En camino">En camino</option>
-          <option value="Entregado">Entregado</option>
-          <option value="Cancelado">Cancelado</option>
-        </select>
-
-        <button onClick={guardarRepartidor}>
-          {editandoId !== null ? "Actualizar" : "Guardar"}
-        </button>
-
-        {editandoId !== null && (
-          <button className="Repartidores-cancelar" onClick={limpiarFormulario}>
-            Cancelar
-          </button>
+        {/* ─── Mensaje de notificación ─── */}
+        {mensajeNotificacion && (
+          <div className="alerta-notificacion-exito">
+            {mensajeNotificacion}
+          </div>
         )}
+
+        {/* ─── Métricas del Repartidor ─── */}
+        <section className="metricas-panel-grid">
+          <div className="metrica-bloque agendados">
+            <span className="metrica-etiqueta">Pendientes de Entrega</span>
+            <span className="metrica-valor">{entregasPendientes.length}</span>
+            <span className="metrica-ayuda">Por entregar en ruta</span>
+          </div>
+          <div className="metrica-bloque total">
+            <span className="metrica-etiqueta">Entregas Completadas</span>
+            <span className="metrica-valor">{entregasRealizadas.length}</span>
+            <span className="metrica-ayuda">Finalizadas con éxito</span>
+          </div>
+          <div className="metrica-bloque asignados">
+            <span className="metrica-etiqueta">Total Asignaciones</span>
+            <span className="metrica-valor">{misEntregas.length}</span>
+            <span className="metrica-ayuda">Historial personal</span>
+          </div>
+        </section>
+
+        {/* ─── Tabla de entregas asignadas ─── */}
+        <section className="card-panel">
+          <div className="card-panel-header">
+            <h2>Pedidos Asignados a mi Cargo ({misEntregas.length})</h2>
+            <span className="card-panel-sub">Información de contacto del cliente, dirección exacta y despacho</span>
+          </div>
+
+          <div className="table-responsive-wrapper">
+            <table className="tabla-profesional">
+              <thead>
+                <tr>
+                  <th>N° Pedido</th>
+                  <th>Cliente</th>
+                  <th>Teléfono</th>
+                  <th>Dirección de Entrega</th>
+                  <th>Productos a Entregar</th>
+                  <th>Cant.</th>
+                  <th>Instrucciones / Notas</th>
+                  <th>Estado Actual</th>
+                  <th>Acción de Despacho</th>
+                </tr>
+              </thead>
+              <tbody>
+                {misEntregas.length === 0 ? (
+                  <tr>
+                    <td colSpan="9" className="celda-vacia">
+                      Actualmente no tienes pedidos asignados. Cuando recepción te asigne una orden, se reflejará automáticamente aquí.
+                    </td>
+                  </tr>
+                ) : (
+                  misEntregas.map((p) => (
+                    <tr key={p.id}>
+                      <td className="celda-codigo">#{p.id}</td>
+                      <td className="celda-principal">{p.cliente}</td>
+                      <td>
+                        <a
+                          href={`tel:${p.telefono}`}
+                          className="link-telefono-profesional"
+                          title="Llamar al cliente"
+                        >
+                          {p.telefono || "Sin teléfono"}
+                        </a>
+                      </td>
+                      <td className="celda-direccion">
+                        {p.direccion || "Dirección no especificada"}
+                      </td>
+                      <td className="celda-principal">{p.producto}</td>
+                      <td className="celda-centrada">{p.cantidad}</td>
+                      <td className="celda-nota">{p.nota || "Sin especificaciones"}</td>
+                      <td className="celda-centrada">
+                        <span
+                          className={`badge-estado estado-${p.estado
+                            .toLowerCase()
+                            .replace(/\s+/g, "-")}`}
+                        >
+                          {p.estado}
+                        </span>
+                      </td>
+                      <td className="celda-centrada">
+                        {permisos.ejecutar && (
+                          <div className="acciones-botones-columna">
+                            {p.estado !== "En camino" && p.estado !== "Entregado" && (
+                              <button
+                                type="button"
+                                className="btn-repartidor-encamino"
+                                onClick={() => handleMarcarEnCamino(p.id)}
+                              >
+                                Iniciar Entrega (En camino)
+                              </button>
+                            )}
+
+                            {p.estado === "En camino" && (
+                              <button
+                                type="button"
+                                className="btn-repartidor-entregado"
+                                onClick={() => handleMarcarEntregado(p.id)}
+                              >
+                                Confirmar Entrega Realizada
+                              </button>
+                            )}
+
+                            {p.estado === "Entregado" && (
+                              <span className="estado-texto-completado">
+                                Entrega Completada
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </section>
       </div>
-
-      <h2>Lista de Repartidores</h2>
-
-      <table className="Repartidores-tabla">
-        <thead>
-          <tr>
-            <th>Repartidor</th>
-            <th>Cliente</th>
-            <th>Teléfono</th>
-            <th>Pedido</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Repartidores.length === 0 ? (
-            <tr>
-              <td colSpan="6">No hay registros</td>
-            </tr>
-          ) : (
-            Repartidores.map((c) => (
-              <tr key={c.id}>
-                <td>{c.Nrepartidor}</td>
-                <td>{c.Ncliente}</td>
-                <td>{c.telefono}</td>
-                <td>{c.pedido}</td>
-                <td>{c.estado}</td>
-                <td>
-                  <button
-                    className="Repartidores-editar"
-                    onClick={() => editarRepartidor(c)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="Repartidores-eliminar"
-                    onClick={() => eliminarRepartidor(c.id)}
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
     </div>
   );
 }
